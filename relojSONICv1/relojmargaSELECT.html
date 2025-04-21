@@ -1,0 +1,51 @@
+<!-- ==================== relojmargaSELECT.html ==================== -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Reloj</title>
+    <script>
+        // Función mejorada para detectar dispositivos móviles/tablets
+        function esDispositivoMovil() {
+            // 1. Detección por UserAgent
+            const userAgent = navigator.userAgent.toLowerCase();
+            const esMovil = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+            
+            // 2. Detección por tamaño de pantalla (útil para tablets en modo landscape)
+            const esPantallaPequena = window.innerWidth <= 768;
+            
+            return esMovil || esPantallaPequena;
+        }
+
+        // Redirige con confirmación en consola (para depuración)
+        function redirigir() {
+            const ruta = esDispositivoMovil() 
+                ? "relojANALOGICOpantallaMovil.html" 
+                : "relojANALOGICOpantallagrande.html";
+            
+            console.log("Redirigiendo a:", ruta); // Para debug
+            window.location.href = ruta; // Usamos href en lugar de replace para mayor compatibilidad
+        }
+
+        // Ejecutar al cargar la página
+        window.addEventListener('load', redirigir);
+    </script>
+</head>
+<body>
+    <p style="text-align: center; font-family: Arial;">
+        Cargando la versión adecuada...
+    </p>
+    <!-- Mensaje de respaldo por si falla la redirección -->
+    <script>
+        setTimeout(() => {
+            if (!window.location.href.includes("Fondo")) { // Si no se ha redirigido después de 2 segundos
+                document.body.innerHTML += "<p style='color: red;'>Error: No se pudo redirigir. <a href='relojmamaFondoWindows1.html'>Haz clic aquí</a></p>";
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
+
+
+
